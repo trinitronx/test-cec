@@ -11,7 +11,7 @@ First, make sure you have [`golang` installed][install-golang]
 
 Next, install dependencies:
 
-    sudo apt-get -y install build-essential git libcec-dev libp8-platform-dev
+    sudo apt-get -y install build-essential git libcec-dev libp8-platform-dev libuvdev-dev
 
 Optionally, you may wish to install `cec-client` for comparing how it interacts with CEC:
 
@@ -21,7 +21,7 @@ Make sure you have [`GOPATH` set up][setup-gopath] somewhere where you would lik
 
     go get github.com/chbmuc/cec
     go get github.com/trinitronx/test-cec
-    cd $GOPATH/src/github.com/trinitronx/test-cec
+    cd $(go env GOPATH)/src/github.com/trinitronx/test-cec
     go install
 
 Running
@@ -29,7 +29,7 @@ Running
 
 It's as simple as:
 
-    $GOPATH/bin/test-cec
+    $(go env GOPATH)/bin/test-cec
 
 
 [install-golang]: https://github.com/golang/go/wiki/Ubuntu
