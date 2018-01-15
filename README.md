@@ -11,7 +11,7 @@ First, make sure you have [`golang` installed][install-golang]
 
 Next, install dependencies:
 
-    sudo apt-get -y install build-essential git libcec-dev libp8-platform-dev libuvdev-dev
+    sudo apt-get -y install build-essential git libcec-dev libp8-platform-dev libudev-dev
 
 Optionally, you may wish to install `cec-client` for comparing how it interacts with CEC:
 
