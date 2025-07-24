@@ -1,6 +1,25 @@
+/*
+test-cec runs CEC commands.
+
+It is a simple command line utility to test CEC commands
+and to demonstrate how to use the cec package.
+
+Usage:
+
+	test-cec [flags] [path ...]
+
+The flags are:
+
+		-device
+		    Send CEC commands to the specified CEC device.
+	        Default is /dev/ttyACM0, but can be overridden with this flag.
+		-h, --help
+		    Show this help message and exit.
+*/
 package main
 
 import (
+	"flag"
 	"fmt"
     "os"
     "regexp"
@@ -124,13 +143,27 @@ func GetDeviceByOSDName(c *cec.Connection, osd_name string) (d cec.Device, d_typ
 //         - Run "ActiveSource" command by cmd name, Autodetect this device's physical address via os.Hostname
 // TODO?: Figure out why Golang client grabs weird `f.f.f.f` physicaladdress when it should be 4.0.0.0
 func main() {
+       // CEC adapter device path
+       // Default to `/dev/ttyACM0`, but allow user to override with `-device` flag
+       // Examples: `/dev/ttyACM0``, `/dev/ttyUSB0`, or `/dev/cec0``
+       var devicePath string
+       var help bool
+       flag.StringVar(&devicePath, "device", "/dev/ttyACM0",
+               "Path to CEC device, e.g. `/dev/ttyACM0`, `/dev/ttyUSB0`, or `/dev/cec0`")
+       flag.BoolVar(&help, "help", false, "Show this help message and exit")
+       flag.Parse()
+       if help {
+               flag.Usage()
+               os.Exit(0)
+       }
+
     // Set this CEC client name to os.Hostname(), or default to "cec.go"
     cec_device_name, err := os.Hostname()
     if err != nil {
         cec_device_name = "cec.go"
     }
     fmt.Println("Using CEC Device Name: ", cec_device_name)
-	c, err := cec.Open("", cec_device_name)
+	c, err := cec.Open(cec_device_name, devicePath, true)
 	if err != nil {
 		fmt.Println(err)
 	}
