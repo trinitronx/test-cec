@@ -3,7 +3,9 @@ test-cec.go
 
 Simple demo code for using & testing out `github.com/chbmuc/libcec`.
 
-> [!NOTE]  Outdated / unmaintained dependencies!
+> [!NOTE]
+> Outdated / unmaintained dependencies!
+> 
 > `github.com/chbmuc/libcec` only supports `libcec` version `4.x`!
 > As such, this project will not work on most modern Linux distros.
 > The instructions were originally tested for Ubuntu `16.04`, Go `1.7.4`
